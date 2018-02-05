@@ -18,49 +18,54 @@
 
 	<p id="guessesLeft">Guesses Left: </p>
 
-	<p id="guessessofar">Your Guesses so far: </p>
+	<p id="guessessofar">Your Guesses So Far: </p>
 
 <script type="text/javascript">
 
-var Wins = 0;
-var Loses = 0;
-var guessesLeft = 9;
+var Wins = 1;
+var Loses = 1;
 var guessesSoFar = 0;
-var userGuesses = 0;
 
-
-document.onkeyup = function(wins) {
-		console.log(wins.key);
+document.onkeyup = function(event) {		
 
 	var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 	var compIndex =Math.floor(Math.random()*computerChoices.length);
 	
 	var randomCompChoice=computerChoices[compIndex];
-
+		console.log("user:" + event.key);
   		console.log("computer: " + randomCompChoice);
 
+document.getElementById("guessessofar").innerHTML = ("Your Guesses So Far: " + event.key);
+//ABOVE: KEEPS OVERRIDING PREVIOUS GUESS
 
-if (wins.key === randomCompChoice) {
-	console.log("YOU WIN");
+
+if (event.key === randomCompChoice) {
+	console.log("User WIN");
 	document.getElementById("wins").innerHTML = ("Wins: " + Wins++);
 }
 
 else {
-	console.log("YOU LOOSE");
+	console.log("User LOOSE");
 	//var Loses = Loses++;
 	document.getElementById("loses").innerHTML = ("Loses: " + Loses++);
 }
 
-
 }
 
+
+//user gets 9 guesses. Once it hits 9, reset game
+//console.log it
+//then .innerhtml it
+
+
+//left to do:
+//.innerHTML the letters chosen so far
+//stop at 9 and RESET 
+//make a win and loose alert when restarting a round 
 
 
 
 </script>
-
-
-
 </body>
 </html>
