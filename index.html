@@ -2,8 +2,65 @@
 <html>
 <head>
 	<title>Psychic Game</title>
+<!--link to javascript, css, reset css or bootstrap-->
+
 </head>
+
 <body>
+	
+	<h1>The Psychic Game</h1>
+
+	<h3>Guess what number I am thinking. Click a key to guess a letter. </h3>
+
+	<p id="wins">Wins: 0</p>
+
+	<p id="loses"> Loses: 0</p>
+
+	<p id="guessesLeft">Guesses Left: </p>
+
+	<p id="guessessofar">Your Guesses so far: </p>
+
+<script type="text/javascript">
+
+var Wins = 0;
+var Loses = 0;
+var guessesLeft = 9;
+var guessesSoFar = 0;
+var userGuesses = 0;
+
+
+document.onkeyup = function(wins) {
+		console.log(wins.key);
+
+	var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+	var compIndex =Math.floor(Math.random()*computerChoices.length);
+	
+	var randomCompChoice=computerChoices[compIndex];
+
+  		console.log("computer: " + randomCompChoice);
+
+
+if (wins.key === randomCompChoice) {
+	console.log("YOU WIN");
+	document.getElementById("wins").innerHTML = ("Wins: " + Wins++);
+}
+
+else {
+	console.log("YOU LOOSE");
+	//var Loses = Loses++;
+	document.getElementById("loses").innerHTML = ("Loses: " + Loses++);
+}
+
+
+}
+
+
+
+
+</script>
+
+
 
 </body>
 </html>
