@@ -23,17 +23,17 @@
 <script type="text/javascript">
 
 //global variables and arrays 
-var wins = 0; //# of times user has guesses correctly 
-var loses = 0; //user gets +1 loss when they guessed 9 times without succes 
-var guessesLeft = 9;  //they get 9 guesses at start of round
+var wins = 1; //# of times user has guesses correctly 
+var wrongGuesses = 1; 
+var countLoses = 1;
+var loses = 1; //user gets +1 loss when they guessed 9 times without succes 
+var guessesLeft = 8;  //they get 9 guesses at start of round
 var guessesSoFar = []; //empty array to push user's guesses into 
 var computerOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]; //this is an array of letters the computer can choose from 
 
 
-
-//create function for when user releases key, keep track of what they clicked, and computer generates random letters, then compare 
-
-//create function for when user clicks and releases a letter key that:
+//create function for when user releases key, keep track of what they clicked, the computer will generate a random letter, then the two letters will be compared 
+//create function for when user clicks and releases a key that:
 //1. Decreases the number of guesses left after each guess, starting at 9
 //2.tracks guesses so far
 //3. computer generate random letter 
@@ -43,7 +43,7 @@ var computerOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l
 
 document.onkeyup = function(keypushed) {
 
-//each time user guesses, reduce this var by 1 
+//each time user guesses (by clicking a letter), reduce this var by 1 
 document.getElementById("guessesleft").innerHTML = ("Guesses Left: " + guessesLeft--);
 
 //generate random letter 
@@ -53,52 +53,52 @@ document.getElementById("guessesleft").innerHTML = ("Guesses Left: " + guessesLe
   		console.log("computer: " + randomCompChoice);
 
 //keep track of user guesses, and show guesses in innerHTML
-  	guessesSoFar.push(keypushed.key);
+  	guessesSoFar.push(keypushed.key); //push this to the global empty array guessesSoFar
   	console.log(guessesSoFar);
+	document.getElementById("guessessofar").innerHTML = ("Your Guesses So Far: " + guessesSoFar); //display the array guessesSoFar in innerHTML 
+
+
+//create a reset function to call to reset guessesSoFar and guessesLeft whenever user wins or guesses incorrectly 9 times 
+function reset () {
+	guessesSoFar = [];
+	guessesLeft = 9;
+	countWrongGuesses = 0;
 	document.getElementById("guessessofar").innerHTML = ("Your Guesses So Far: " + guessesSoFar);
+	document.getElementById("guessesleft").innerHTML = ("Guesses Left: " + guessesLeft--);
+	console.log("User incorrect guesses this round: " + countWrongGuesses);
+}
 
+//keep track of incorrect guesses
+// then reset when incorrect guesses amounts to 9 
+var countWrongGuesses = (wrongGuesses++);
+console.log("User incorrect guesses this round: " + countWrongGuesses);  //THIS IS COMPUTER GUESSES TOTAL. NOT JUST THE WRONG ONES
+while (countWrongGuesses == 9) {
+	reset();
+}
 
-if (event.key === randomCompChoice) {
+//determine wins and loses with if/else statements 
+if (keypushed.key === randomCompChoice) {
 	console.log("User WIN");
 	document.getElementById("wins").innerHTML = ("Wins: " + wins++);
-	//want guessesSoFar to reset
-	// guessesSoFar = []; this resets the line of all the guesses so far, but it happens one click after the win event, and then it goes back to the array that was previously there
-	//want GuessesLeft to reset to 9
-	// guessesLeft = 9; this isn't working 
+	alert("YOU ARE PSYCHIC!"); 
+	reset ();
+		}
 
-}
-
-else {
-	console.log("User LOOSE: " + "number of loses: " +  loses ++);
-	//document.getElementById("loses").innerHTML = ("Loses: " + Loses++);
-	//guessesLeft = 9; //their guesses are reset because they lost this round  
-	//guessesSoFar.length= 0;
-}
-
-//if (Loses == 9) {
-//	GuessesLeft = 9;
-//	guessesSoFar = [];
-//}    //the intention here was to reset score, but maybe needs a forloop?
-
+else if (countWrongGuesses % 9 === 0)
+		{
+		document.getElementById("loses").innerHTML = ("Loses: " + countLoses++);
+		alert("You guessed wrong 9 times. Sorry! Try again!");
+		reset(); }
+	
+else {}
 
 }
 
 
-//track number of user guesses
-//if user guessed 9 times without winning, alert "you loose", and reset
-//if user guessed correctly one time, alert "you won" and reset
 
 
 
-
-// if (guessessLeft == 0 || userguess=computerchoice || incorrect = 9)
-// RESET
-
-
-//resets: (without refreshing page)
-//1. reset guesses left to 9
-//2. reset guesses so far to empty array 
-
+//extra stuff if time: make it so the computer ONLY reads LETTER KEYS 
 
 
 
@@ -106,3 +106,8 @@ else {
 </script>
 </body>
 </html>
+
+
+
+
+
