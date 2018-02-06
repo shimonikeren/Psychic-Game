@@ -22,36 +22,60 @@
 
 <script type="text/javascript">
 
-var Wins = 1;
-var Loses = 1;
-var guessesSoFar = 0;
 
-document.onkeyup = function(event) {		
+//global variables
+var Wins = 0;
+var Loses = 0;
+var GuessesLeft = 9;
+var guessesSoFar = []; //empty array to push user choices to 
 
-	var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+//global arrays
+var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-	var compIndex =Math.floor(Math.random()*computerChoices.length);
+//creat function for when user releases key, keep track of what they clicked, and computer generates random letters
+document.onkeyup = function(event) {
+
+	//var userGuess = String.fromCharCode(event.keyCode).toLowerCase(); //record user guess, including if it is capital (by using .toLowerCase)
+
+	var compIndex  =Math.floor(Math.random()*computerChoices.length);
 	
 	var randomCompChoice=computerChoices[compIndex];
 		console.log("user:" + event.key);
   		console.log("computer: " + randomCompChoice);
 
-document.getElementById("guessessofar").innerHTML = ("Your Guesses So Far: " + event.key);
+
+//document.getElementById("guessessofar").innerHTML = ("Your Guesses So Far: " + event.key);
 //ABOVE: KEEPS OVERRIDING PREVIOUS GUESS
+
+
+	var updateGuessesSoFar = function () {
+		document.querySelector('#let').innerhtml = ("Your Guesses So Far" + compIndex.join(','));
+	}
+
 
 
 if (event.key === randomCompChoice) {
 	console.log("User WIN");
 	document.getElementById("wins").innerHTML = ("Wins: " + Wins++);
+	alert("You guessed correctly. You must be Psychic!");
+	guessesLeft = 9; //their guesses are reset because they won this round 
 }
 
 else {
 	console.log("User LOOSE");
 	//var Loses = Loses++;
 	document.getElementById("loses").innerHTML = ("Loses: " + Loses++);
+	alert("You lost. Try again!");
+	guessesLeft = 9; //their guesses are reset because they lost this round  
 }
 
 }
+
+
+
+
+
+
 
 
 //user gets 9 guesses. Once it hits 9, reset game
