@@ -44,11 +44,11 @@ var computerOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l
 document.onkeyup = function(keypushed) {
 
 //each time user guesses, reduce this var by 1 
-document.getElementById("guessesleft").innerHTML = ("Guesses Left: " + GuessesLeft--);
+document.getElementById("guessesleft").innerHTML = ("Guesses Left: " + guessesLeft--);
 
 //generate random letter 
-	var compIndex  =Math.floor(Math.random()*computerChoices.length);	
-	var randomCompChoice=computerChoices[compIndex];
+	var compIndex  =Math.floor(Math.random()*computerOptions.length);	
+	var randomCompChoice=computerOptions[compIndex];
 		console.log("user:" + keypushed.key);
   		console.log("computer: " + randomCompChoice);
 
@@ -60,7 +60,7 @@ document.getElementById("guessesleft").innerHTML = ("Guesses Left: " + GuessesLe
 
 if (event.key === randomCompChoice) {
 	console.log("User WIN");
-	document.getElementById("wins").innerHTML = ("Wins: " + Wins++);
+	document.getElementById("wins").innerHTML = ("Wins: " + wins++);
 	//want guessesSoFar to reset
 	// guessesSoFar = []; this resets the line of all the guesses so far, but it happens one click after the win event, and then it goes back to the array that was previously there
 	//want GuessesLeft to reset to 9
@@ -69,7 +69,7 @@ if (event.key === randomCompChoice) {
 }
 
 else {
-	console.log("User LOOSE: " + "number of loses: " +  Loses ++);
+	console.log("User LOOSE: " + "number of loses: " +  loses ++);
 	//document.getElementById("loses").innerHTML = ("Loses: " + Loses++);
 	//guessesLeft = 9; //their guesses are reset because they lost this round  
 	//guessesSoFar.length= 0;
