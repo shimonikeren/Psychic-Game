@@ -16,27 +16,35 @@
 
 	<p id="loses"> Loses: 0</p>
 
-	<p id="guessesLeft">Guesses Left: 9</p>
+	<p id="guessesleft">Guesses Left: 9</p>
 
 	<p id="guessessofar">Your Guesses So Far: </p>
 
 <script type="text/javascript">
 
+//global variables and arrays 
+var wins = 0; //# of times user has guesses correctly 
+var loses = 0; //user gets +1 loss when they guessed 9 times without succes 
+var guessesLeft = 9;  //they get 9 guesses at start of round
+var guessesSoFar = []; //empty array to push user's guesses into 
+var computerOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]; //this is an array of letters the computer can choose from 
 
-//global variables
-var Wins = 1;
-var Loses = 1;
-var GuessesLeft = 9;
-var guessesSoFar = []; //empty array to push user choices to 
 
-//global arrays
-var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 //create function for when user releases key, keep track of what they clicked, and computer generates random letters, then compare 
+
+//create function for when user clicks and releases a letter key that:
+//1. Decreases the number of guesses left after each guess, starting at 9
+//2.tracks guesses so far
+//3. computer generate random letter 
+//4. compare user guess and computer guess
+//5. tracks wins: increase number of wins +1 each time the player guesses correctly **THEN RESET**
+//5. tracks loses: every time user guesses 9 times without success, add +1 to loss counter **THEN RESET**
+
 document.onkeyup = function(keypushed) {
 
 //each time user guesses, reduce this var by 1 
-document.getElementById("guessesLeft").innerHTML = ("Guesses Left: " + GuessesLeft--);
+document.getElementById("guessesleft").innerHTML = ("Guesses Left: " + GuessesLeft--);
 
 //generate random letter 
 	var compIndex  =Math.floor(Math.random()*computerChoices.length);	
@@ -79,6 +87,18 @@ else {
 //track number of user guesses
 //if user guessed 9 times without winning, alert "you loose", and reset
 //if user guessed correctly one time, alert "you won" and reset
+
+
+
+
+// if (guessessLeft == 0 || userguess=computerchoice || incorrect = 9)
+// RESET
+
+
+//resets: (without refreshing page)
+//1. reset guesses left to 9
+//2. reset guesses so far to empty array 
+
 
 
 
