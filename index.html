@@ -16,7 +16,7 @@
 
 	<p id="loses"> Loses: 0</p>
 
-	<p id="guessesLeft">Guesses Left: </p>
+	<p id="guessesLeft">Guesses Left: 9</p>
 
 	<p id="guessessofar">Your Guesses So Far: </p>
 
@@ -24,69 +24,62 @@
 
 
 //global variables
-var Wins = 0;
-var Loses = 0;
+var Wins = 1;
+var Loses = 1;
 var GuessesLeft = 9;
 var guessesSoFar = []; //empty array to push user choices to 
 
 //global arrays
 var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-//creat function for when user releases key, keep track of what they clicked, and computer generates random letters
-document.onkeyup = function(event) {
+//create function for when user releases key, keep track of what they clicked, and computer generates random letters, then compare 
+document.onkeyup = function(keypushed) {
 
-	//var userGuess = String.fromCharCode(event.keyCode).toLowerCase(); //record user guess, including if it is capital (by using .toLowerCase)
+//each time user guesses, reduce this var by 1 
+document.getElementById("guessesLeft").innerHTML = ("Guesses Left: " + GuessesLeft--);
 
-	var compIndex  =Math.floor(Math.random()*computerChoices.length);
-	
+//generate random letter 
+	var compIndex  =Math.floor(Math.random()*computerChoices.length);	
 	var randomCompChoice=computerChoices[compIndex];
-		console.log("user:" + event.key);
+		console.log("user:" + keypushed.key);
   		console.log("computer: " + randomCompChoice);
 
-
-//document.getElementById("guessessofar").innerHTML = ("Your Guesses So Far: " + event.key);
-//ABOVE: KEEPS OVERRIDING PREVIOUS GUESS
-
-
-	var updateGuessesSoFar = function () {
-		document.querySelector('#let').innerhtml = ("Your Guesses So Far" + compIndex.join(','));
-	}
-
+//keep track of user guesses, and show guesses in innerHTML
+  	guessesSoFar.push(keypushed.key);
+  	console.log(guessesSoFar);
+	document.getElementById("guessessofar").innerHTML = ("Your Guesses So Far: " + guessesSoFar);
 
 
 if (event.key === randomCompChoice) {
 	console.log("User WIN");
 	document.getElementById("wins").innerHTML = ("Wins: " + Wins++);
-	alert("You guessed correctly. You must be Psychic!");
-	guessesLeft = 9; //their guesses are reset because they won this round 
+	//want guessesSoFar to reset
+	// guessesSoFar = []; this resets the line of all the guesses so far, but it happens one click after the win event, and then it goes back to the array that was previously there
+	//want GuessesLeft to reset to 9
+	// guessesLeft = 9; this isn't working 
+
 }
 
 else {
-	console.log("User LOOSE");
-	//var Loses = Loses++;
-	document.getElementById("loses").innerHTML = ("Loses: " + Loses++);
-	alert("You lost. Try again!");
-	guessesLeft = 9; //their guesses are reset because they lost this round  
+	console.log("User LOOSE: " + "number of loses: " +  Loses ++);
+	//document.getElementById("loses").innerHTML = ("Loses: " + Loses++);
+	//guessesLeft = 9; //their guesses are reset because they lost this round  
+	//guessesSoFar.length= 0;
 }
 
+//if (Loses == 9) {
+//	GuessesLeft = 9;
+//	guessesSoFar = [];
+//}    //the intention here was to reset score, but maybe needs a forloop?
+
+
 }
 
 
+//track number of user guesses
+//if user guessed 9 times without winning, alert "you loose", and reset
+//if user guessed correctly one time, alert "you won" and reset
 
-
-
-
-
-
-//user gets 9 guesses. Once it hits 9, reset game
-//console.log it
-//then .innerhtml it
-
-
-//left to do:
-//.innerHTML the letters chosen so far
-//stop at 9 and RESET 
-//make a win and loose alert when restarting a round 
 
 
 
