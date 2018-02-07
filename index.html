@@ -2,108 +2,39 @@
 <html>
 <head>
 	<title>Psychic Game</title>
-<!--link to javascript, css, reset css or bootstrap-->
+	
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
 </head>
 
 <body>
 	
-	<h1>The Psychic Game</h1>
+	<div class="jumbotron jumbotron-fluid">
+  		<div class="container">
+    		<h1 class="display-4">The Psychic Game 
+    			<img src="assets/images/crystalball.png" alt="crystal ball" class="img-thumbnail" height="120px" width="120px">
+    		</h1>
+    		<h3>Guess what number I am thinking. Click a key to guess a letter. </h3>
+		</div>
+	</div>
 
-	<h3>Guess what number I am thinking. Click a key to guess a letter. </h3>
-
-	<p id="wins">Wins: 0</p>
-
-	<p id="loses"> Loses: 0</p>
-
-	<p id="guessesleft">Guesses Left: 9</p>
-
-	<p id="guessessofar">Your Guesses So Far: </p>
-
-<script type="text/javascript">
-
-//global variables and arrays 
-var wins = 1; //# of times user has guesses correctly 
-var wrongGuesses = 1; 
-var countLoses = 1;
-var loses = 1; //user gets +1 loss when they guessed 9 times without succes 
-var guessesLeft = 8;  //they get 9 guesses at start of round
-var guessesSoFar = []; //empty array to push user's guesses into 
-var computerOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]; //this is an array of letters the computer can choose from 
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<p id="wins">Wins: 0</p>
+				<p id="loses"> Loses: 0</p>
+				<p id="guessesleft">Guesses Left: 9</p>
+				<p id="guessessofar">Your Guesses So Far: </p>
+			</div>
+		</div>
+	</div>
 
 
-//create function for when user releases key, keep track of what they clicked, the computer will generate a random letter, then the two letters will be compared 
-//create function for when user clicks and releases a key that:
-//1. Decreases the number of guesses left after each guess, starting at 9
-//2.tracks guesses so far
-//3. computer generate random letter 
-//4. compare user guess and computer guess
-//5. tracks wins: increase number of wins +1 each time the player guesses correctly **THEN RESET**
-//5. tracks loses: every time user guesses 9 times without success, add +1 to loss counter **THEN RESET**
-
-document.onkeyup = function(keypushed) {
-
-//each time user guesses (by clicking a letter), reduce this var by 1 
-document.getElementById("guessesleft").innerHTML = ("Guesses Left: " + guessesLeft--);
-
-//generate random letter 
-	var compIndex  =Math.floor(Math.random()*computerOptions.length);	
-	var randomCompChoice=computerOptions[compIndex];
-		console.log("user:" + keypushed.key);
-  		console.log("computer: " + randomCompChoice);
-
-//keep track of user guesses, and show guesses in innerHTML
-  	guessesSoFar.push(keypushed.key); //push this to the global empty array guessesSoFar
-  	console.log(guessesSoFar);
-	document.getElementById("guessessofar").innerHTML = ("Your Guesses So Far: " + guessesSoFar); //display the array guessesSoFar in innerHTML 
+<script type="text/javascript" src="assets/javascript/game.js"></script>
 
 
-//create a reset function to call to reset guessesSoFar and guessesLeft whenever user wins or guesses incorrectly 9 times 
-function reset () {
-	guessesSoFar = [];
-	guessesLeft = 9;
-	countWrongGuesses = 0;
-	document.getElementById("guessessofar").innerHTML = ("Your Guesses So Far: " + guessesSoFar);
-	document.getElementById("guessesleft").innerHTML = ("Guesses Left: " + guessesLeft--);
-	console.log("User incorrect guesses this round: " + countWrongGuesses);
-}
-
-//keep track of incorrect guesses
-// then reset when incorrect guesses amounts to 9 
-var countWrongGuesses = (wrongGuesses++);
-console.log("User incorrect guesses this round: " + countWrongGuesses);  //THIS IS COMPUTER GUESSES TOTAL. NOT JUST THE WRONG ONES
-while (countWrongGuesses == 9) {
-	reset();
-}
-
-//determine wins and loses with if/else statements 
-if (keypushed.key === randomCompChoice) {
-	console.log("User WIN");
-	document.getElementById("wins").innerHTML = ("Wins: " + wins++);
-	alert("YOU ARE PSYCHIC!"); 
-	reset ();
-		}
-
-else if (countWrongGuesses % 9 === 0)
-		{
-		document.getElementById("loses").innerHTML = ("Loses: " + countLoses++);
-		alert("You guessed wrong 9 times. Sorry! Try again!");
-		reset(); }
-	
-else {}
-
-}
-
-
-
-
-
-//extra stuff if time: make it so the computer ONLY reads LETTER KEYS 
-
-
-
-
-</script>
 </body>
 </html>
 
