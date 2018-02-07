@@ -10,16 +10,28 @@ var Options = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
 
 //create function for when user releases key, keep track of what they clicked, the computer will generate a random letter, then the two letters will be compared 
 //create function for when user clicks and releases a key that:
-//1. Decreases the number of guesses left after each guess, starting at 9
-//2.tracks guesses so far
-//3. computer generate random letter 
-//4. compare user guess and computer guess
-//5. tracks wins: increase number of wins +1 each time the player guesses correctly **THEN RESET**
-//5. tracks loses: every time user guesses 9 times without success, add +1 to loss counter **THEN RESET**
+//1. Alert user if they clicked something other than a letter 
+//2. Decreases the number of guesses left after each guess, starting at 9
+//3. tracks guesses so far in an array 
+//4. computer generate random letter 
+//5. compare user guess and computer guess
+//6. tracks wins: increase number of wins +1 each time the player guesses correctly **THEN RESET**
+//7. tracks loses: every time user guesses 9 times without success, add +1 to loss counter **THEN RESET**
 
 document.onkeyup = function(keypushed) {
 
-//each time user guesses (by clicking a letter), reduce this var by 1 
+//alert user if they clicked a key that is not a lowercase or capital letter 
+	function letterCheck(){
+    	if (event.keyCode > 64 && event.keyCode <91 && event.keyCode <96 && event.keyCode < 123) {
+        return isLetter=true;
+    	}
+    	else{
+          isLetter=false;
+          alert("Looks like you clicked a key that is not a letter. Please click a letter");}
+      }
+letterCheck();
+
+//each time user guesses (by clicking a letter), reduce this variable by 1 
 document.getElementById("guessesleft").innerHTML = ("Guesses Left: " + guessesLeft--);
 
 //generate random letter 
@@ -68,10 +80,3 @@ else if (countWrongGuesses % 9 === 0)
 else {}
 
 }
-
-
-
-
-
-//extra stuff if time: make it so the computer ONLY reads LETTER KEYS 
-
