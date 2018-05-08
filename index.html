@@ -2,11 +2,8 @@
 <html>
 <head>
 	<title>Psychic Game</title>
-	
-	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-
 </head>
 
 <body>
@@ -16,17 +13,32 @@
     		<h1 class="display-4">The Psychic Game 
     			<img src="assets/images/crystalball.png" alt="crystal ball" class="img-thumbnail" height="120px" width="120px">
     		</h1>
-    		<h3>Guess what number I am thinking. Click a key to guess a letter. </h3>
+			<h3>Guess what number I am thinking. Click a key to guess a letter. </h3>
+			<p>You get 10 guesses per round.</p>
+			<p></p>If you get 10/10 guessing opportunities wrong, you lose the round. The game resets.</p>
+			<p>If you guess correctly at any point during your round, you win the round. The game resets.</p>
+			<p>Test your PSYCHIC abilities and see how many points you get!</p>
 		</div>
 	</div>
 
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-3">
-				<p id="wins">Wins: 0</p>
-				<p id="loses"> Loses: 0</p>
-				<p id="guessesleft">Guesses Left: 9</p>
-				<p id="guessessofar">Your Guesses So Far: </p>
+			<div class="col-sm-4">
+				<h3>Game Status:</h3>
+				<p id="guessesSoFar">Your Guesses So Far: </p>
+				<p id="guessesLeft">Guesses Remaining: 10</p>
+			</div>
+
+			<div class="col-sm-4">
+			<h3>Score for this round:</h3>
+				<p id="correct">Correct Guesses: 0</p>
+				<p id="incorrect"> Incorrect Guesses: 0</p>
+			</div>
+
+			<div class="col-sm-4">
+				<h3>Overall Score:</h3>	
+				<p id="winsOverall">Wins: 0</p>
+				<p id="losesOverall"> Loses: 0</p>
 			</div>
 		</div>
 	</div>

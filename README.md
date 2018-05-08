@@ -1,9 +1,13 @@
 # Psychic-Game
 
-In this project, I have created a fun and fucntional working game,  using only javascript, html, and css (and css bootstrap).
+[Click Here to test your Psychic abilities!](https://shimonikeren.github.io/Psychic-Game/)
 
-Essentially, the app randomly picks a letter, and the user has to guess which letter the app chose. The user gets 9 choices per round. 
+The Psychic Game is a dynamic game where the computer generates a random letter and the user has to guess the letter. User gets 10 opportunities to guess the correct letter. If they guess correctly, their win count goes up, if they get 10/10 guesses incorrect, their loss count goes up. The game resets after every round, but the win/loss count remains until the browser closes or is refreshed. 
 
-The page will update according to user choices (wins, losses, guesses left, guesses so far).
+
+###Technologies used:
+* JavaScript
+* HTML
+* CSS, Bootstrap 
 
 Hope you enjoy my Psychic game!

@@ -1,82 +1,75 @@
-//global variables and arrays 
-var wins = 1; //# of times user has guessed correctly 
-var wrongGuesses = 1; 
-var countLoses = 1; //this counts wrong guesses
-var loses = 1; //user gets +1 loss when they guessed 9 times without succes 
-var guessesLeft = 8;  //they get 9 guesses at start of round
-var guessesSoFar = []; //empty array to push user's guesses into 
-var Options = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]; //this is an array of letters the computer and user can choose from 
+//global vars and arrays 
+var guessesLeft = 10;
+var options = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var correctGuesses = 0;
+var incorrectGuesses = 0;
+var userWins = 0;
+var userLoses = 0;
+var userGuesses = [];
+var userLetter = "";
+var compLetter = "";
 
+document.onkeyup = function(event) {  
+	userLetter = event.key;
+	if (options.includes(userLetter)){
+		userGuesses.push(userLetter);
+		checkGuessesLeft();
+	}
+	else {
+		alert("Invalid option. Please select a letter");
+	}
+};	
 
-//create function for when user releases key, keep track of what they clicked, the computer will generate a random letter, then the two letters will be compared 
-//create function for when user clicks and releases a key that:
-//1. Alert user if they clicked something other than a letter 
-//2. Decreases the number of guesses left after each guess, starting at 9
-//3. tracks guesses so far in an array 
-//4. computer generate random letter 
-//5. compare user guess and computer guess
-//6. tracks wins: increase number of wins +1 each time the player guesses correctly **THEN RESET**
-//7. tracks loses: every time user guesses 9 times without success, add +1 to loss counter **THEN RESET**
+function resetGame(){
+	userGuesses = [];
+	document.getElementById("guessesSoFar").innerHTML=
+	"Your Guesses So Far: " + userGuesses;
+	guessesLeft = 11;
+	document.getElementById("guessesLeft").innerHTML="Guesses Remaining: " + guessesLeft;
+	correctGuesses = 0;
+	document.getElementById("correct").innerHTML=
+		"Correct Guesses: " + correctGuesses;
+	incorrectGuesses = -1;
+	document.getElementById("incorrect").innerHTML=
+	"Incorrect Guesses: " + incorrectGuesses;
+	playGame();
+};
 
-document.onkeyup = function(keypushed) {
+function checkGuessesLeft() {
+	if (guessesLeft >= 1){
+		playGame();
+	}
+};
 
-//alert user if they clicked a key that is not a lowercase or capital letter 
-	function letterCheck(){
-    	if (event.keyCode > 64 && event.keyCode <91 && event.keyCode <96 && event.keyCode < 123) {
-        return isLetter=true;
-    	}
-    	else{
-          isLetter=false;
-          alert("Looks like you clicked a key that is not a letter. Please click a letter");}
-      }
-letterCheck();
-
-//each time user guesses (by clicking a letter), reduce this variable by 1 
-document.getElementById("guessesleft").innerHTML = ("Guesses Left: " + guessesLeft--);
-
-//generate random letter 
-	var compIndex  =Math.floor(Math.random()*Options.length);	
-	var randomCompChoice=Options[compIndex];
-		console.log("user:" + keypushed.key);
-  		console.log("computer: " + randomCompChoice);
-
-//keep track of user guesses, and show guesses in innerHTML
-  	guessesSoFar.push(keypushed.key); //push this to the global empty array guessesSoFar
-  	console.log(guessesSoFar);
-	document.getElementById("guessessofar").innerHTML = ("Your Guesses So Far: " + guessesSoFar); //display the array guessesSoFar in innerHTML 
-
-//create a reset function to call to reset guessesSoFar and guessesLeft whenever user wins or guesses incorrectly 9 times 
-function reset () {
-	guessesSoFar = [];
-	guessesLeft = 9;
-	countWrongGuesses = 0;
-	document.getElementById("guessessofar").innerHTML = ("Your Guesses So Far: " + guessesSoFar);
-	document.getElementById("guessesleft").innerHTML = ("Guesses Left: " + guessesLeft--);
-	console.log("User incorrect guesses this round: " + countWrongGuesses);
-}
-
-//keep track of incorrect guesses
-// then reset when incorrect guesses amounts to 9 
-var countWrongGuesses = (wrongGuesses++);
-console.log("User incorrect guesses this round: " + countWrongGuesses);  //THIS IS COMPUTER GUESSES TOTAL. NOT JUST THE WRONG ONES
-while (countWrongGuesses == 9) {
-	reset();
-}
-
-//determine wins and loses with if/else statements 
-if (keypushed.key === randomCompChoice) {
-	console.log("User WIN");
-	document.getElementById("wins").innerHTML = ("Wins: " + wins++);
-	alert("YOU ARE PSYCHIC!"); 
-	reset ();
+function playGame () {
+	compLetter = options[Math.floor(Math.random()*options.length)];
+	if (compLetter.toLowerCase() === userLetter.toLowerCase()){
+		document.getElementById("guessesSoFar").innerHTML=
+		"Your Guesses So Far: " + userGuesses;
+		document.getElementById("guessesLeft").innerHTML="Guesses Remaining: " + guessesLeft;
+		correctGuesses++;
+		document.getElementById("correct").innerHTML=
+		"Correct Guesses: " + correctGuesses;
+		userWins++;
+		document.getElementById("winsOverall").innerHTML=
+		"Wins: " + userWins;
+		alert("You are PSYCHIC! You won this round.")
+		resetGame();
+	}
+	else {
+		document.getElementById("guessesSoFar").innerHTML=
+		"Your Guesses So Far: " + userGuesses;
+		guessesLeft--;
+		document.getElementById("guessesLeft").innerHTML="Guesses Remaining: " + guessesLeft;
+		incorrectGuesses++;
+		document.getElementById("incorrect").innerHTML=
+		"Incorrect Guesses: " + incorrectGuesses;
+		if (guessesLeft === 0){
+			userLoses++;
+			document.getElementById("losesOverall").innerHTML=
+			"Loses: " + userLoses;
+			alert("10 incorrect guesses. You must not be Psychic. Try your luck again.");
+			resetGame();
 		}
-
-else if (countWrongGuesses % 9 === 0)
-		{
-		document.getElementById("loses").innerHTML = ("Loses: " + countLoses++);
-		alert("You guessed wrong 9 times. Sorry! Try again!");
-		reset(); }
-	
-else {}
-
-}
+	}
+};
